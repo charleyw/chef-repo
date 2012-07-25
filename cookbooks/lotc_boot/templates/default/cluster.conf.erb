@@ -1,0 +1,36 @@
+#
+# Default cluster.conf, generated Mon Jan  1 00:08:47 UTC 2007
+#
+# For information about the file format, see the LOTC User Guide
+#
+dns all 150.236.34.180
+dns all 150.236.34.181
+dns all 146.11.115.200
+dns all 192.168.100.3
+
+
+node 1 control <%= @name %>
+
+timezone UTC
+
+network external 192.168.100.0/24
+network internal 10.60.0.0/24
+network default 0.0.0.0/0
+
+interface 1 eth0 ethernet <%= node[:macaddress] %>
+
+interface control eth0.200 vlan
+interface payload eth0.200 vlan
+
+interface control eth0:1 alias
+
+ip 1 eth0.200 internal 10.60.0.1
+ip 1 eth0 external <%= node[:ipaddress]%>
+
+mip control nfs eth0:1 internal 10.60.0.100
+
+nfs 10.60.0.100
+
+route all default gateway 192.168.100.3
+
+# End of file
