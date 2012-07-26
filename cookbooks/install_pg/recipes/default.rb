@@ -16,12 +16,12 @@ end
 mount "/mnt" do
   device "/var/log/iso/#{node["pg_iso"]}.iso"
   options "loop"
-  action :nothing
+  action :mount
 end
 
 execute "install_P" do
   cwd "/mnt"
-  command "./install.sh -P"
+  command "sh install.sh -P"
   action :run
   notifies :create, "template[/home/dveinstaller/ma70/installparameters.properties]", :immediately
 end
@@ -33,7 +33,7 @@ end
 
 execute "install_I" do
   cwd "/mnt"
-  command "./install.sh -I config/#{node["pg_layout"]}_node.conf"
+  command "sh install.sh -I config/#{node["pg_layout"]}_node.conf"
   action :run
   notifies :umount, "mount[/mnt]", :immediately
 end

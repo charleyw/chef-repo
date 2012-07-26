@@ -1,3 +1,8 @@
 .rake_test_cache
-./chef/*
+knife.rb
+wang.pem
+chef-test-file-c
+validation.pem
 
+*.iso
+*.tar.gz
